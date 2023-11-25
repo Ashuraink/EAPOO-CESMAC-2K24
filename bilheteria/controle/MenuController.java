@@ -1,9 +1,9 @@
-package bilheteria.controller; 
+package bilheteria.controle;
 
 import java.util.Scanner;
 
-import bilheteria.model.Filme;
-import bilheteria.model.Ingressos;
+import bilheteria.modelo.Filme;
+import bilheteria.modelo.Ingressos;
 
 public class MenuController {
 
@@ -12,7 +12,7 @@ public class MenuController {
     public static void exibirMenu() {
         System.out.println(saudacao());
         while (true) {
-            System.out.print("Deseja comprar um bilhete para assistir um dos nossos filmes? (sim/não): ");
+            System.out.print("Deseja comprar um bilhete para assistir um dos nossos filmes? (sim/não):");
             boolean perguntaIngresso = scanner.next().equalsIgnoreCase("sim");
             if (!perguntaIngresso) {
                 System.out.println("Volte sempre.");
@@ -27,10 +27,10 @@ public class MenuController {
         System.out.println("Os filmes em cartaz são os listados a seguir:");
         // Mostrar lista de filmes
         Filme[] filmes = {
-                new Filme("Oppenheimer", "Diretor Oppen", "Descrição Oppen", "Drama", 120),
-                new Filme("Matrix Reloaded", "Diretor Matrix", "Descrição Matrix", "Ação", 150),
-                new Filme("Som da Liberdade", "Diretor Som", "Descrição Som", "Musical", 110),
-                new Filme("One piece - Gold", "Diretor One Piece", "Descrição One Piece", "Animação", 130)
+                new Filme("Oppenheimer", "Christopher Nolan", "O filme Oppenheimer, relata a história de J. Robert Oppenheimer. Ele foi o cientista responsável por liderar o Projeto Manhattan, um programa confidencial dos Estados Unidos cujo objetivo era desenvolver uma bomba atômica durante a Segunda Guerra Mundial.", "Suspense/Thriller", 180),
+                new Filme("Matrix Reloaded", "Lana Wachowski, Lilly Wachowski", "O filme matrix reloaded continua a historia de Neo,A Matrix está realizando uma grande ofensiva contra Zion, onde 250 mil máquinas estão escavando rumo à cidade e podem alcançá-la em poucos dias. Uma reunião que definirá o contra-ataque humano. Entretanto, um recado do Oráculo faz com que a nave leve Neo de volta à Matrix.", "Ficção Científica/Ação", 138),
+                new Filme("Som da Liberdade", "Alejandro Gómez Monteverde", "Baseado em uma história real, a trama desse filme gira em torno de Tim Ballard (Caviezel), um ex-agente especial do governo dos Estados Unidos que embarca em uma missão repleta de perigos para resgatar uma garotinha do tráfico internacional de crianças.", "Crime/Thriller", 135),
+                new Filme("One piece - Gold", "Miyamoto Hiroaki", "Situado em Gran Tesoro, um país independente fretado pelo Governo Mundial, lar da maior cidade de entretenimento do mundo, onde piratas, fuzileiros navais e milionários conhecidos em todo o mundo se reúnem em um santuário absoluto que nem o Governo Mundial pode tocar.", "Animação/Aventura", 130)
         };
 
         for (int i = 0; i < filmes.length; i++) {

@@ -1,4 +1,4 @@
-package bilheteria.model;
+package bilheteria.modelo;
 
 public class Ingressos {
 
