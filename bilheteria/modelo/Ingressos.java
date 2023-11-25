@@ -10,6 +10,9 @@ public class Ingressos {
     private static final double VALOR_MEIA = 12.0;
 
     public Ingressos(Filme filme, String horario, int quantidadeInteira, int quantidadeMeia) {
+        if (filme.isFilme3D()) {
+            throw new IllegalArgumentException("Ingresso comum não pode ser vinculado a filme 3D.");
+        }
         this.filme = filme;
         this.horario = horario;
         this.quantidadeInteira = quantidadeInteira;
@@ -34,5 +37,9 @@ public class Ingressos {
 
     public double calcularValorTotal() {
         return (quantidadeInteira * VALOR_INTEIRA) + (quantidadeMeia * VALOR_MEIA);
+    }
+
+    public void acessoLanchonete() {
+        System.out.println("Compre um ingresso VIP.");
     }
 }

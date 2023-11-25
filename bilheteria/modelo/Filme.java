@@ -7,19 +7,20 @@ public class Filme {
     private String descricao;
     private String genero;
     private int duracao;
+    private boolean filme3D;
 
-    public Filme(String nome, String diretor, String descricao, String genero, int duracao) {
+    public Filme(String nome, String diretor, String descricao, String genero, int duracao, boolean filme3D) {
         this.nome = nome;
         this.diretor = diretor;
         this.descricao = descricao;
         this.genero = genero;
         this.duracao = duracao;
+        this.filme3D = filme3D;
     }
 
     public String getNome() {
         return nome;
     }
-
 
     public String getDiretor() {
         return diretor;
@@ -37,4 +38,7 @@ public class Filme {
         return duracao;
     }
 
+    public boolean isFilme3D() {
+        return filme3D;
+    }
 }

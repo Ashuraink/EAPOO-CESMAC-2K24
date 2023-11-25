@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 import bilheteria.modelo.Filme;
 import bilheteria.modelo.Ingressos;
+import bilheteria.modelo.IngressosVip;
+
 
 public class MenuController {
 
@@ -25,12 +27,12 @@ public class MenuController {
 
     private static void comprarIngresso() {
         System.out.println("Os filmes em cartaz são os listados a seguir:");
-        // Mostrar lista de filmes
         Filme[] filmes = {
-                new Filme("Oppenheimer", "Christopher Nolan", "O filme Oppenheimer, relata a história de J. Robert Oppenheimer. Ele foi o cientista responsável por liderar o Projeto Manhattan, um programa confidencial dos Estados Unidos cujo objetivo era desenvolver uma bomba atômica durante a Segunda Guerra Mundial.", "Suspense/Thriller", 180),
-                new Filme("Matrix Reloaded", "Lana Wachowski, Lilly Wachowski", "O filme matrix reloaded continua a historia de Neo,A Matrix está realizando uma grande ofensiva contra Zion, onde 250 mil máquinas estão escavando rumo à cidade e podem alcançá-la em poucos dias. Uma reunião que definirá o contra-ataque humano. Entretanto, um recado do Oráculo faz com que a nave leve Neo de volta à Matrix.", "Ficção Científica/Ação", 138),
-                new Filme("Som da Liberdade", "Alejandro Gómez Monteverde", "Baseado em uma história real, a trama desse filme gira em torno de Tim Ballard (Caviezel), um ex-agente especial do governo dos Estados Unidos que embarca em uma missão repleta de perigos para resgatar uma garotinha do tráfico internacional de crianças.", "Crime/Thriller", 135),
-                new Filme("One piece - Gold", "Miyamoto Hiroaki", "Situado em Gran Tesoro, um país independente fretado pelo Governo Mundial, lar da maior cidade de entretenimento do mundo, onde piratas, fuzileiros navais e milionários conhecidos em todo o mundo se reúnem em um santuário absoluto que nem o Governo Mundial pode tocar.", "Animação/Aventura", 130)
+                new Filme("Oppenheimer", "Christopher Nolan", "O filme Oppenheimer, relata a história de J. Robert Oppenheimer. Ele foi o cientista responsável por liderar o Projeto Manhattan, um programa confidencial dos Estados Unidos cujo objetivo era desenvolver uma bomba atômica durante a Segunda Guerra Mundial.", "Suspense/Thriller", 180, false),
+                new Filme("Matrix Reloaded", "Lana Wachowski, Lilly Wachowski", "O filme matrix reloaded continua a historia de Neo,A Matrix está realizando uma grande ofensiva contra Zion, onde 250 mil máquinas estão escavando rumo à cidade e podem alcançá-la em poucos dias. Uma reunião que definirá o contra-ataque humano. Entretanto, um recado do Oráculo faz com que a nave leve Neo de volta à Matrix.", "Ficção Científica/Ação", 138, false),
+                new Filme("Som da Liberdade", "Alejandro Gómez Monteverde", "Baseado em uma história real, a trama desse filme gira em torno de Tim Ballard (Caviezel), um ex-agente especial do governo dos Estados Unidos que embarca em uma missão repleta de perigos para resgatar uma garotinha do tráfico internacional de crianças.", "Crime/Thriller", 135, false),
+                new Filme("One piece - Gold", "Miyamoto Hiroaki", "Situado em Gran Tesoro, um país independente fretado pelo Governo Mundial, lar da maior cidade de entretenimento do mundo, onde piratas, fuzileiros navais e milionários conhecidos em todo o mundo se reúnem em um santuário absoluto que nem o Governo Mundial pode tocar.", "Animação/Aventura", 130, false),
+                new Filme("Avatar 2", "James Cameron", "Continuação do épico Avatar, o filme traz novas aventuras no planeta Pandora em 3D.", "Aventura/Ficção Científica", 150, true)
         };
 
         for (int i = 0; i < filmes.length; i++) {
@@ -45,14 +47,23 @@ public class MenuController {
         }
 
         Filme filmeEscolhido = filmes[escolhaFilme - 1];
-        System.out.println("\nInformações do Filme:");
-        System.out.println("Nome: " + filmeEscolhido.getNome());
-        System.out.println("Diretor: " + filmeEscolhido.getDiretor());
-        System.out.println("Descrição: " + filmeEscolhido.getDescricao());
-        System.out.println("Gênero: " + filmeEscolhido.getGenero());
-        System.out.println("Duração: " + filmeEscolhido.getDuracao() + " minutos");
 
-        System.out.println("Horários disponíveis:");
+        if (filmeEscolhido.isFilme3D()) {
+            System.out.print("Deseja comprar um ingresso VIP para o filme 3D? (sim/não): ");
+            boolean escolhaIngressoVIP = scanner.next().equalsIgnoreCase("sim");
+
+            if (escolhaIngressoVIP) {
+                comprarIngressoVIP(filmeEscolhido);
+            } else {
+                System.out.println("Ingresso comum não disponível para filmes 3D. Escolha outro filme.");
+            }
+        } else {
+            comprarIngresso(filmeEscolhido);
+        }
+    }
+
+    private static void comprarIngresso(Filme filmeEscolhido) {
+        System.out.println("Os horários disponíveis são:");
         String[] nossosHorarios = {"17:00", "18:50", "20:00"};
         for (int i = 0; i < nossosHorarios.length; i++) {
             System.out.println((i + 1) + ". " + nossosHorarios[i]);
@@ -70,16 +81,49 @@ public class MenuController {
         System.out.print("Quantidade de meia-entrada desejada: ");
         int quantidadeMeia = scanner.nextInt();
 
-        Ingressos ingresso = new Ingressos(filmes[escolhaFilme - 1], nossosHorarios[escolhaHorario - 1],
+        Ingressos ingresso = new Ingressos(filmeEscolhido, nossosHorarios[escolhaHorario - 1],
                 quantidadeInteira, quantidadeMeia);
 
-        System.out.println("\nResumo da compra:");
+        System.out.println("\nResumo da compra para Ingresso Comum:");
         System.out.println("Ingressos para o filme: " + ingresso.getFilme().getNome());
         System.out.println("Sessão: " + ingresso.getHorario());
         System.out.println("Ingressos Inteiros: " + ingresso.getQuantidadeInteira());
         System.out.println("Ingressos Meia-entrada: " + ingresso.getQuantidadeMeia());
         System.out.printf("Valor total a ser pago: R$%.2f\n", ingresso.calcularValorTotal());
         System.out.println("Bom filme!");
+        ingresso.acessoLanchonete(); 
+    }
+
+    private static void comprarIngressoVIP(Filme filmeEscolhido) {
+        System.out.println("Os horários disponíveis são:");
+        String[] nossosHorarios = {"17:00", "18:50", "20:00"};
+        for (int i = 0; i < nossosHorarios.length; i++) {
+            System.out.println((i + 1) + ". " + nossosHorarios[i]);
+        }
+
+        System.out.print("Escolha o horário da sessão desejada: ");
+        int escolhaHorario = scanner.nextInt();
+        if (escolhaHorario < 1 || escolhaHorario > nossosHorarios.length) {
+            System.out.println("Número de horário incorreto. Tente novamente.");
+            return;
+        }
+
+        System.out.print("Quantidade de bilhetes inteiros desejada: ");
+        int quantidadeInteira = scanner.nextInt();
+        System.out.print("Quantidade de meia-entrada desejada: ");
+        int quantidadeMeia = scanner.nextInt();
+
+        IngressosVip ingressoVIP = new IngressosVip(filmeEscolhido, nossosHorarios[escolhaHorario - 1],
+                quantidadeInteira, quantidadeMeia);
+
+        System.out.println("\nResumo da compra para Ingresso VIP:");
+        System.out.println("Ingressos VIP para o filme: " + ingressoVIP.getFilme().getNome());
+        System.out.println("Sessão: " + ingressoVIP.getHorario());
+        System.out.println("Ingressos Inteiros VIP: " + ingressoVIP.getQuantidadeInteira());
+        System.out.println("Ingressos Meia-entrada VIP: " + ingressoVIP.getQuantidadeMeia());
+        System.out.printf("Valor total a ser pago: R$%.2f\n", ingressoVIP.calcularValorTotal());
+        System.out.println("Bom filme!");
+        ingressoVIP.acessoLanchonete();
     }
 
     private static String saudacao() {
