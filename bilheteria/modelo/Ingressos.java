@@ -40,6 +40,6 @@ public class Ingressos {
     }
 
     public void acessoLanchonete() {
-        System.out.println("Compre um ingresso VIP.");
+        System.out.println("Para acessar a lanchonete, compre um ingresso VIP.");
     }
 }

@@ -31,32 +31,35 @@ public class MenuController {
                 new Filme("Oppenheimer", "Christopher Nolan", "O filme Oppenheimer, relata a história de J. Robert Oppenheimer. Ele foi o cientista responsável por liderar o Projeto Manhattan, um programa confidencial dos Estados Unidos cujo objetivo era desenvolver uma bomba atômica durante a Segunda Guerra Mundial.", "Suspense/Thriller", 180, false),
                 new Filme("Matrix Reloaded", "Lana Wachowski, Lilly Wachowski", "O filme matrix reloaded continua a historia de Neo,A Matrix está realizando uma grande ofensiva contra Zion, onde 250 mil máquinas estão escavando rumo à cidade e podem alcançá-la em poucos dias. Uma reunião que definirá o contra-ataque humano. Entretanto, um recado do Oráculo faz com que a nave leve Neo de volta à Matrix.", "Ficção Científica/Ação", 138, false),
                 new Filme("Som da Liberdade", "Alejandro Gómez Monteverde", "Baseado em uma história real, a trama desse filme gira em torno de Tim Ballard (Caviezel), um ex-agente especial do governo dos Estados Unidos que embarca em uma missão repleta de perigos para resgatar uma garotinha do tráfico internacional de crianças.", "Crime/Thriller", 135, false),
-                new Filme("One piece - Gold", "Miyamoto Hiroaki", "Situado em Gran Tesoro, um país independente fretado pelo Governo Mundial, lar da maior cidade de entretenimento do mundo, onde piratas, fuzileiros navais e milionários conhecidos em todo o mundo se reúnem em um santuário absoluto que nem o Governo Mundial pode tocar.", "Animação/Aventura", 130, false),
+                new Filme("One piece - Gold", "Miyamoto Hiroaki", "Situado em Gran Tesoro, um país independente fretado pelo Governo Mundial, lar da maior cidade \n de entretenimento do mundo, onde piratas, fuzileiros navais e milionários conhecidos em todo o mundo se reúnem em um santuário absoluto que nem o Governo Mundial pode tocar.", "Animação/Aventura", 130, false),
                 new Filme("Avatar 2", "James Cameron", "Continuação do épico Avatar, o filme traz novas aventuras no planeta Pandora em 3D.", "Aventura/Ficção Científica", 150, true)
         };
 
         for (int i = 0; i < filmes.length; i++) {
-            System.out.println((i + 1) + ". " + filmes[i].getNome());
+            Filme filmeAtual = filmes[i];
+            System.out.println((i + 1) + ". " + filmeAtual.getNome());
+            System.out.println("   Direção: " + filmeAtual.getDiretor());
+            System.out.println("   Descrição: " + filmeAtual.getDescricao());
+            System.out.println("   Gênero: " + filmeAtual.getGenero());
+            System.out.println("   Tempo: " + filmeAtual.getDuracao() + " minutos");
+            System.out.println("   3D: " + (filmeAtual.isFilme3D() ? "Sim" : "Não"));
+            System.out.println();
         }
-
+    
         System.out.print("Escolha o número do filme desejado: ");
         int escolhaFilme = scanner.nextInt();
         if (escolhaFilme < 1 || escolhaFilme > filmes.length) {
             System.out.println("Número de filme incorreto. Tente novamente.");
             return;
         }
-
+    
         Filme filmeEscolhido = filmes[escolhaFilme - 1];
-
-        if (filmeEscolhido.isFilme3D()) {
-            System.out.print("Deseja comprar um ingresso VIP para o filme 3D? (sim/não): ");
-            boolean escolhaIngressoVIP = scanner.next().equalsIgnoreCase("sim");
-
-            if (escolhaIngressoVIP) {
-                comprarIngressoVIP(filmeEscolhido);
-            } else {
-                System.out.println("Ingresso comum não disponível para filmes 3D. Escolha outro filme.");
-            }
+    
+        System.out.print("Deseja comprar um ingresso VIP para o filme? (sim/não): ");
+        boolean escolhaIngressoVIP = scanner.next().equalsIgnoreCase("sim");
+    
+        if (escolhaIngressoVIP) {
+            comprarIngressoVIP(filmeEscolhido);
         } else {
             comprarIngresso(filmeEscolhido);
         }
@@ -65,6 +68,8 @@ public class MenuController {
     private static void comprarIngresso(Filme filmeEscolhido) {
         System.out.println("Os horários disponíveis são:");
         String[] nossosHorarios = {"17:00", "18:50", "20:00"};
+
+        
         for (int i = 0; i < nossosHorarios.length; i++) {
             System.out.println((i + 1) + ". " + nossosHorarios[i]);
         }
