@@ -2,9 +2,10 @@ package bilheteria.controle;
 
 import java.util.Scanner;
 
+import bilheteria.ingresso.IngressoComum;
+import bilheteria.ingresso.Ingressos;
+import bilheteria.ingresso.IngressosVip;
 import bilheteria.modelo.Filme;
-import bilheteria.modelo.Ingressos;
-import bilheteria.modelo.IngressosVip;
 
 
 public class MenuController {
@@ -68,27 +69,26 @@ public class MenuController {
     private static void comprarIngresso(Filme filmeEscolhido) {
         System.out.println("Os horários disponíveis são:");
         String[] nossosHorarios = {"17:00", "18:50", "20:00"};
-
-        
+    
         for (int i = 0; i < nossosHorarios.length; i++) {
             System.out.println((i + 1) + ". " + nossosHorarios[i]);
         }
-
+    
         System.out.print("Escolha o horário da sessão desejada: ");
         int escolhaHorario = scanner.nextInt();
         if (escolhaHorario < 1 || escolhaHorario > nossosHorarios.length) {
             System.out.println("Número de horário incorreto. Tente novamente.");
             return;
         }
-
+    
         System.out.print("Quantidade de bilhetes inteiros desejada: ");
         int quantidadeInteira = scanner.nextInt();
         System.out.print("Quantidade de meia-entrada desejada: ");
         int quantidadeMeia = scanner.nextInt();
-
-        Ingressos ingresso = new Ingressos(filmeEscolhido, nossosHorarios[escolhaHorario - 1],
-                quantidadeInteira, quantidadeMeia);
-
+    
+        Ingressos ingresso = new IngressoComum(filmeEscolhido, nossosHorarios[escolhaHorario - 1],
+            quantidadeInteira, quantidadeMeia);
+    
         System.out.println("\nResumo da compra para Ingresso Comum:");
         System.out.println("Ingressos para o filme: " + ingresso.getFilme().getNome());
         System.out.println("Sessão: " + ingresso.getHorario());
@@ -96,7 +96,7 @@ public class MenuController {
         System.out.println("Ingressos Meia-entrada: " + ingresso.getQuantidadeMeia());
         System.out.printf("Valor total a ser pago: R$%.2f\n", ingresso.calcularValorTotal());
         System.out.println("Bom filme!");
-        ingresso.acessoLanchonete(); 
+        ingresso.acessoLanchonete();
     }
 
     private static void comprarIngressoVIP(Filme filmeEscolhido) {
@@ -114,21 +114,21 @@ public class MenuController {
         }
 
         System.out.print("Quantidade de bilhetes inteiros desejada: ");
-        int quantidadeInteira = scanner.nextInt();
-        System.out.print("Quantidade de meia-entrada desejada: ");
-        int quantidadeMeia = scanner.nextInt();
+    int quantidadeInteira = scanner.nextInt();
+    System.out.print("Quantidade de meia-entrada desejada: ");
+    int quantidadeMeia = scanner.nextInt();
 
         IngressosVip ingressoVIP = new IngressosVip(filmeEscolhido, nossosHorarios[escolhaHorario - 1],
                 quantidadeInteira, quantidadeMeia);
 
-        System.out.println("\nResumo da compra para Ingresso VIP:");
-        System.out.println("Ingressos VIP para o filme: " + ingressoVIP.getFilme().getNome());
-        System.out.println("Sessão: " + ingressoVIP.getHorario());
-        System.out.println("Ingressos Inteiros VIP: " + ingressoVIP.getQuantidadeInteira());
-        System.out.println("Ingressos Meia-entrada VIP: " + ingressoVIP.getQuantidadeMeia());
-        System.out.printf("Valor total a ser pago: R$%.2f\n", ingressoVIP.calcularValorTotal());
-        System.out.println("Bom filme!");
-        ingressoVIP.acessoLanchonete();
+            System.out.println("\nResumo da compra para Ingresso VIP:");
+            System.out.println("Ingressos VIP para o filme: " + ingressoVIP.getFilme().getNome());
+            System.out.println("Sessão: " + ingressoVIP.getHorario());
+            System.out.println("Ingressos Inteiros VIP: " + ingressoVIP.getQuantidadeInteira());
+            System.out.println("Ingressos Meia-entrada VIP: " + ingressoVIP.getQuantidadeMeia());
+            System.out.printf("Valor total a ser pago: R$%.2f\n", ingressoVIP.calcularValorTotal());
+            System.out.println("Bom filme!");
+            ingressoVIP.acessoLanchonete();
     }
 
     private static String saudacao() {

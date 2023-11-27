@@ -1,4 +1,6 @@
-package bilheteria.modelo;
+package bilheteria.ingresso;
+
+import bilheteria.modelo.Filme;
 
 public class IngressosVip extends Ingressos {
 
@@ -11,7 +13,7 @@ public class IngressosVip extends Ingressos {
 
     @Override
     public double calcularValorTotal() {
-        return (getQuantidadeInteira() * VALOR_INTEIRA_VIP) + (getQuantidadeMeia() * VALOR_MEIA_VIP);
+        return (quantidadeInteira * VALOR_INTEIRA_VIP) + (quantidadeMeia * VALOR_MEIA_VIP);
     }
 
     @Override
